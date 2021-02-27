@@ -33,8 +33,7 @@ _%>
 <%_ } else { %>
    <%- returnPrefix %> <%= entityInstance %>Repository.findById(<%= instanceName %>.id)
    .map { 
-    <%_ for (field of fields) { 
-       if (field.id) continue; _%>
+   <%_ for (const field of fields.filter(field => !field.id && !field.transient)) { _%>
            if (<%= instanceName %>.<%= field.fieldName %>!= null) {
               it.<%= field.fieldName %> = <%= instanceName %>.<%= field.fieldName %>
            }
